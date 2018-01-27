@@ -1,0 +1,10 @@
+*.pyc
+
+local_settings.py
+logs/
+
+*.log
+
+gunicorn_config.py
+
+
