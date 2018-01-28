@@ -14,7 +14,7 @@ class ListCreateView(BaseView):
 
         userService=UserService(db=self.db,url=req.uri,query_params=req.params)
 
-        users,pagination=userService.get_users(pagination=True)
+        users,pagination=userService.all(pagination=True)
 
         resp.media=self.reply({"users":users},pagination=pagination,message="Well Done")
 
