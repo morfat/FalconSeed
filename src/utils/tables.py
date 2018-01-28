@@ -11,8 +11,7 @@ class Table(object):
     
 
 
-    def __init__(self,db):
-        self._db=db
+    def __init__(self):
         self.validated_data={}
         self.read_only=[]
         self.write_only=[]
@@ -40,8 +39,17 @@ class Table(object):
         except jsonschema.ValidationError as e:
             raise falcon.HTTPBadRequest('Data validation failed',description=e.message)
 
-    def get_cleaned_data(self,remove_keys):
-        return {k:v for k,v in self.validated_data.items() if k not in remove_keys}
+    def get_cleaned_data(self):
+        return {k:v for k,v in self.validated_data.items() if k not in self.read_only}
+
+    def get_display_data(self):
+        return {k:v for k,v in self.validated_data.items() if k not in self.write_only}
+
+    def get_display_fields(self):
+        return [k for k,v in self.properties.items() if v.get('writeOnly') is not True]
+
+
+    
 
 
 

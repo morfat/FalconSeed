@@ -12,22 +12,17 @@ class ListCreateView(BaseView):
     def on_get(self,req,resp):
         resp.status=falcon.HTTP_200 #this is default
 
-        userService=UserService(self.db)
+        userService=UserService(db=self.db,url=req.uri,query_params=req.params)
 
-        users=userService.get_users()
+        users,pagination=userService.get_users(pagination=True)
 
-        resp.media=self.reply({"users":users},pagination={},message="Well Done")
+        resp.media=self.reply({"users":users},pagination=pagination,message="Well Done")
 
 
 
     def on_post(self,req,resp):
         userService=UserService(self.db)
-
-        user={"email":"me@me913.com","password":"pass","first_name":"Mosoti","last_name":"mogaka","id":self.unique_id()}
-
-        inserted=userService.insert(user)
-
-        #data=req.media
+        inserted=userService.insert(req.media)
         resp.media=self.reply({"user":inserted})
 
 
