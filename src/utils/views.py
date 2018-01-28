@@ -1,4 +1,3 @@
-import uuid
 
 class BaseView(object):
     login_required=True
@@ -15,7 +14,4 @@ class BaseView(object):
             reply.update({'message':message})
         return reply
 
-    def unique_id(self):
-        #return model uniue id
-        return uuid.uuid4().hex
-    
+  

@@ -8,6 +8,7 @@ class BaseService:
     table_class=None
     ordering=''
     group_by=''
+   
 
 
     def __init__(self,db,url,query_params):
@@ -32,6 +33,17 @@ class BaseService:
         self.db.execute(sql)
 
         return (self.db.fetchall(),pagination,)
+
+    def get(self,pk):
+        fields=','.join(self.table.get_display_fields())
+        if type(pk) is str:
+            pk=' "%s" '%(pk)
+
+        sql="SELECT %s FROM %s WHERE %s=%s "%(fields,self.table.name,self.table.pk,pk)
+        self.db.execute(sql)
+        return self.db.fetchone()
+    
+
 
 
     def count(self,sql=None):

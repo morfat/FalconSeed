@@ -4,6 +4,7 @@ import jsonschema
 
 
 class Table(object):
+    pk=None
     name="" # db table name
     properties={} #schema properties
     schema={} #to hold schema for each model

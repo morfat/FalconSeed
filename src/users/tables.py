@@ -4,6 +4,8 @@ from utils.utils import current_date_time
 
 
 class User(Table):
+    pk="id"
+    
     name="users"
     properties={
         "first_name": {

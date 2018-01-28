@@ -26,3 +26,13 @@ class ListCreateView(BaseView):
         resp.media=self.reply({"user":inserted})
 
 
+class DetailView(BaseView):
+    
+    def on_get(self,req,resp,user_id):
+        resp.status=falcon.HTTP_200 #this is default
+        userService=UserService(db=self.db,url=req.uri,query_params=req.params)
+
+        user=userService.get(user_id)
+     
+        resp.media=self.reply({"user":user},message="Got it")
+
